@@ -1,4 +1,4 @@
-setInterval((function() {
+(function() {
 
   const serverUrl = 'http://127.0.0.1:3000';
 
@@ -6,26 +6,21 @@ setInterval((function() {
   // TODO: build the swim command fetcher here 
   //
 
-  const swimTeam = () => {
+  const ajaxGet = () => {
 
     $.ajax({
       type: 'GET',
-      // data: query,
-      url: 'http://127.0.0.1:3000',
+      url: serverUrl,
       cache: false,
       contentType: false,
       processData: false,
       success: (r) => {
-        // reload the page
         SwimTeam.move(r)
-        // window.location = window.location.href;
       }
     });
   }
-
-
-
-  swimTeam();
+  
+  setInterval(() => ajaxGet(), 500);
 
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
@@ -38,7 +33,7 @@ setInterval((function() {
     $.ajax({
       type: 'POST',
       data: formData,
-      url: 'FILL_ME_IN',
+      url: serverUrl,
       cache: false,
       contentType: false,
       processData: false,
@@ -67,4 +62,4 @@ setInterval((function() {
     ajaxFileUplaod(file);
   });
 
-}), 3000);
+})();

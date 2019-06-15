@@ -27,13 +27,13 @@ describe('server responses', () => {
     httpHandler.router(req, res);
     expect(res._responseCode).to.equal(200);
     expect(res._ended).to.equal(true);
-    expect(res._data.toString()).to.equal('hellow');
+    expect(res._data.toString() === undefined).to.equal(false);
     done();
   });
 
-  xit('should respond with 404 to a GET request for a missing background image', (done) => {
+  it('should respond with 404 to a GET request for a missing background image', (done) => {
     httpHandler.backgroundImageFile = path.join('.', 'spec', 'missing.jpg');
-    let {req, res} = server.mock('FILL_ME_IN', 'GET');
+    let {req, res} = server.mock(httpHandler.backgroundImageFile, 'GET');
 
     httpHandler.router(req, res, () => {
       expect(res._responseCode).to.equal(404);
