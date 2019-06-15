@@ -1,16 +1,14 @@
 
 
 const messageQueue = require('./js/messageQueue');
+
 const keypressHandler = require('./js/keypressHandler');
+
+keypressHandler.initialize(messageQueue.enqueue);
+
 const httpHandler = require('./js/httpHandler');
-const cb = (message) => {
-    console.log(`Message received: ${message}`);
-    messageQueue.enqueue(message);
-}
-keypressHandler.initialize(cb);
 
-
-
+httpHandler.initialize(messageQueue);
 
 const http = require('http');
 const server = http.createServer(httpHandler.router);

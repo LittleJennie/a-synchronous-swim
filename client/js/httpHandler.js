@@ -11,16 +11,16 @@
     $.ajax({
       type: 'GET',
       url: serverUrl,
-      cache: false,
-      contentType: false,
-      processData: false,
       success: (r) => {
         SwimTeam.move(r)
+      },
+      complete: () => {
+        setTimeout(ajaxGet, 50)
       }
     });
   }
-  
-  setInterval(() => ajaxGet(), 500);
+
+  ajaxGet();
 
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
@@ -33,12 +33,13 @@
     $.ajax({
       type: 'POST',
       data: formData,
-      url: serverUrl,
+      url: serverUrl + '/background.jpg',
       cache: false,
       contentType: false,
       processData: false,
       success: () => {
         // reload the page
+        console.log('posted')
         window.location = window.location.href;
       }
     });
